@@ -1,0 +1,12 @@
+@let current = column();
+
+<div>
+  <span>TITLE column: </span>
+  @if (current) {
+    <span>{{ column()?.title }} </span>
+  }
+
+  @for (card of current?.cards; track $index) {
+    <cp-card [card]="card"></cp-card>
+  }
+</div>
