@@ -30,6 +30,11 @@ export class TodoApiService {
                   description: 'prendre en compte les 5 fruits et légume',
                   tags: ['code'],
                 },
+                {
+                  title: 'Ranger la cuisine',
+                  description: 'faire la vaisselle',
+                  tags: ['code'],
+                },
               ],
             },
             {
