@@ -7,6 +7,7 @@ import { CardComponent } from './card.component/card.component';
   imports: [CardComponent],
   templateUrl: './column.component.html',
   styleUrl: './column.component.scss',
+  standalone: true,
 })
 export class ColumnComponent {
   column = input<ColumnModel>();

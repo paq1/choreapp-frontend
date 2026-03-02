@@ -7,6 +7,7 @@ import { ColumnComponent } from './column-component/column.component';
   imports: [ColumnComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
+  standalone: true,
 })
 export class BoardComponent {
   board = input<BoardModel>();

@@ -11,6 +11,7 @@ import { AsyncPipe } from '@angular/common';
   imports: [BoardComponent, AsyncPipe],
   templateUrl: './board-page.html',
   styleUrl: './board-page.scss',
+  standalone: true,
 })
 export class BoardPage {
   todoApiService = inject(TodoApiService);
