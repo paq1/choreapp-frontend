@@ -1,23 +1,23 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { BoardComponent } from '../../components/board-component/board.component';
-import { TodoApiService } from '../../data-access/todo-api.service';
-import { JsonApiSingleModel } from '../../../../shared/models/jsonapi.model';
 import { BoardModel } from '../../models/board.model';
-import { AsyncPipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import { TodoService } from '../../services/todo.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-board-page',
-  imports: [BoardComponent, AsyncPipe],
+  imports: [BoardComponent],
   templateUrl: './board-page.html',
   styleUrl: './board-page.scss',
   standalone: true,
 })
-export class BoardPage {
-  private readonly todoApiService = inject(TodoApiService);
+export class BoardPage implements OnInit {
+  private readonly todoApiService = inject(TodoService);
+  boardSignal = toSignal(this.todoApiService.board$);
 
-  readonly board$: Observable<JsonApiSingleModel<BoardModel>> =
+  ngOnInit(): void {
     this.todoApiService.fetchBoard('pierre');
+  }
 
   onNewBoard(board: BoardModel): void {
     console.log('onNewBoard', board);

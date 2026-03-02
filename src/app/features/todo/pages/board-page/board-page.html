@@ -1,3 +1,7 @@
 
-@let board = board$ | async;
-<cp-board [board]="board?.data?.attributes" (shouldUpdate)="onNewBoard($event)"></cp-board>
+@let board = boardSignal();
+@if (board) {
+  <cp-board [board]="board" (shouldUpdate)="onNewBoard($event)"></cp-board>
+} @else {
+  <div class="loading">Loading...</div>
+}

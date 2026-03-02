@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { JsonApiSingleModel } from '../../../shared/models/jsonapi.model';
 import { BoardModel } from '../models/board.model';
 import { HttpClient } from '@angular/common/http';
@@ -15,7 +15,17 @@ export class TodoApiService {
 
   constructor() {}
 
-  mockBoard = {
+  fetchBoard(tenant: string): Observable<JsonApiSingleModel<BoardModel>> {
+    // TODO : remplace lorsque l'api sera prete : return this.http.get<JsonApiSingleModel<BoardModel>>(`${this.apiUrl}/boards?tenant=${tenant}`);
+    return of(this.mockBoard);
+  }
+
+  updateBoard(tenant: string, board: BoardModel): void {
+    // TODO : remplace lorsque l'api sera prete : return this.http.get<JsonApiSingleModel<BoardModel>>(`${this.apiUrl}/boards?tenant=${tenant}`);
+    this.mockBoard.data.attributes = board;
+  }
+
+  private mockBoard = {
     data: {
       id: '1',
       attributes: {
@@ -56,14 +66,4 @@ export class TodoApiService {
       },
     },
   };
-
-  fetchBoard(tenant: string): Observable<JsonApiSingleModel<BoardModel>> {
-    // TODO : remplace lorsque l'api sera prete : return this.http.get<JsonApiSingleModel<BoardModel>>(`${this.apiUrl}/boards?tenant=${tenant}`);
-    return of(this.mockBoard);
-  }
-
-  updateBoard(tenant: string, board: BoardModel): void {
-    // TODO : remplace lorsque l'api sera prete : return this.http.get<JsonApiSingleModel<BoardModel>>(`${this.apiUrl}/boards?tenant=${tenant}`);
-    this.mockBoard.data.attributes = board;
-  }
 }
