@@ -1,10 +1,11 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
-import { BoardModel, CardModel, ColumnModel } from '../../models/board.model';
+import { BoardModel, CardInModel, CardModel, ColumnModel } from '../../models/board.model';
 import { ColumnComponent } from './column-component/column.component';
+import { AddTaskFormComponent } from './add-task-form.component/add-task-form.component';
 
 @Component({
   selector: 'cp-board',
-  imports: [ColumnComponent],
+  imports: [ColumnComponent, AddTaskFormComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
   standalone: true,
@@ -12,6 +13,17 @@ import { ColumnComponent } from './column-component/column.component';
 export class BoardComponent {
   board = input<BoardModel>();
   @Output() shouldUpdate: EventEmitter<BoardModel> = new EventEmitter();
+  @Output() shouldAddTask: EventEmitter<CardInModel> = new EventEmitter();
+
+  isOpen: boolean = false;
+
+  onNewTask(): void {
+    this.isOpen = !this.isOpen;
+  }
+
+  onAddTask(task: CardInModel): void {
+    this.shouldAddTask.emit(task);
+  }
 
   onRequestMoveRight(id: string): void {
     const boardSync = this.board();

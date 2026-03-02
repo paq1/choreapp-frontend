@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { JsonApiSingleModel } from '../../../shared/models/jsonapi.model';
-import { BoardModel } from '../models/board.model';
+import { BoardModel, CardInModel, ColumnModel } from '../models/board.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import * as uuid from 'uuid'; // TODO : a degager lorsque le back sera la
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,16 @@ export class TodoApiService {
   updateBoard(tenant: string, board: BoardModel): void {
     // TODO : remplace lorsque l'api sera prete : return this.http.get<JsonApiSingleModel<BoardModel>>(`${this.apiUrl}/boards?tenant=${tenant}`);
     this.mockBoard.data.attributes = board;
+  }
+
+  addTask(tenant: string, task: CardInModel): void {
+    const nextId = uuid.v4();
+    this.mockBoard.data.attributes.tables[0].cards.push({
+      id: nextId,
+      title: task.title,
+      description: task.description,
+      tags: task.tags,
+    });
   }
 
   private mockBoard = {

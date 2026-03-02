@@ -13,3 +13,9 @@ export interface CardModel {
   description: string,
   tags: string[]
 }
+
+export interface CardInModel {
+  title: string;
+  description: string;
+  tags: string[];
+}

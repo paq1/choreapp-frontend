@@ -4,3 +4,10 @@
                (cardRequestMoveLeft)="onRequestMoveLeft($event)"></cp-column>
   }
 </div>
+<div>
+  <button (click)="onNewTask()">new</button>
+
+  @if (isOpen) {
+    <cp-add-task-form (addTaskRequest)="onAddTask($event)"></cp-add-task-form>
+  }
+</div>

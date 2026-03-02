@@ -1,0 +1,24 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <div class="field">
+    <label for="title">Titre</label>
+    <input class="InputClassique" id="title" formControlName="title" placeholder="Pouet ..." />
+    @if(form.title?.touched && form.title?.invalid) {
+      <div style="color: red;">
+        Le titre est requis.
+      </div>
+    }
+  </div>
+
+  <div class="field">
+    <label for="description">Description</label>
+    <input class="InputClassique" id="description" formControlName="description" placeholder="Pouet ..." />
+    @if(form.description?.touched && form.description?.invalid) {
+      <div style="color: red;">
+        La description est requis.
+      </div>
+    }
+  </div>
+
+  <button class="ButtonWhite u-has-margin-left-16 u-has-padding-8 u-has-margin-top-16 u-is-txt-20" type="submit">Ajouter</button>
+</form>

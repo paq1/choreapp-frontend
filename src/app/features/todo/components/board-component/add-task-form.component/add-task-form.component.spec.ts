@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { AddTaskFormComponent } from './add-task-form.component';
+
+describe('AddTaskFormComponent', () => {
+  let component: AddTaskFormComponent;
+  let fixture: ComponentFixture<AddTaskFormComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AddTaskFormComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(AddTaskFormComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
