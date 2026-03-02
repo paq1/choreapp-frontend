@@ -8,6 +8,7 @@ import { CardInModel } from '../../../models/board.model';
   imports: [ReactiveFormsModule],
   templateUrl: './add-task-form.component.html',
   styleUrl: './add-task-form.component.scss',
+  standalone: true,
 })
 export class AddTaskFormComponent {
   form: CreateFormGroup = new CreateFormGroup();
