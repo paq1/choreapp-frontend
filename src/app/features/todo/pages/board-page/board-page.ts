@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { BoardComponent } from '../../components/board-component/board.component';
 import { TodoApiService } from '../../data-access/todo-api.service';
-import { Observable } from 'rxjs';
 import { JsonApiSingleModel } from '../../../../shared/models/jsonapi.model';
 import { BoardModel } from '../../models/board.model';
 import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-board-page',
@@ -14,9 +14,8 @@ import { AsyncPipe } from '@angular/common';
   standalone: true,
 })
 export class BoardPage {
-  todoApiService = inject(TodoApiService);
+  private readonly todoApiService = inject(TodoApiService);
 
-  fetchBoard(): Observable<JsonApiSingleModel<BoardModel>> {
-    return this.todoApiService.fetchBoard('pierre');
-  }
+  readonly board$: Observable<JsonApiSingleModel<BoardModel>> =
+    this.todoApiService.fetchBoard('pierre');
 }

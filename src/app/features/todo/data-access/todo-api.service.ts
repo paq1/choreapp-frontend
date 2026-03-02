@@ -3,12 +3,13 @@ import { Observable, of } from 'rxjs';
 import { JsonApiSingleModel } from '../../../shared/models/jsonapi.model';
 import { BoardModel } from '../models/board.model';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoApiService {
-  apiUrl = 'http://localhost:9000'; // TODO : recupere dans la config
+  apiUrl = environment.apiUrl;
 
   private http: HttpClient = inject(HttpClient);
 
