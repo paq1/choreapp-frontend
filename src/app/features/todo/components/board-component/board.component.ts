@@ -1,7 +1,7 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
 import { BoardModel, CardInModel, CardModel, ColumnModel } from '../../models/board.model';
 import { ColumnComponent } from './column-component/column.component';
-import { AddTaskFormComponent } from './add-task-form.component/add-task-form.component';
+import { AddTaskFormComponent } from './add-task-form-component/add-task-form.component';
 
 @Component({
   selector: 'cp-board',
