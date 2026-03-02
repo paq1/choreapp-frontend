@@ -18,4 +18,9 @@ export class BoardPage {
 
   readonly board$: Observable<JsonApiSingleModel<BoardModel>> =
     this.todoApiService.fetchBoard('pierre');
+
+  onNewBoard(board: BoardModel): void {
+    console.log('onNewBoard', board);
+    this.todoApiService.updateBoard('pierre', board);
+  }
 }

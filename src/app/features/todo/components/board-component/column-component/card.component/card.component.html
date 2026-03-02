@@ -1,4 +1,9 @@
 <div class="Card">
   <span>title : {{ card()?.title }}</span>
   <span>description : {{ card()?.description }}</span>
+
+  <div>
+    <button (click)="onMoveLeft()"><<</button>
+    <button (click)="onMoveRight()">>></button>
+  </div>
 </div>

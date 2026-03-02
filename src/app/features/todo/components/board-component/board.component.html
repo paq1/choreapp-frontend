@@ -1,5 +1,6 @@
 <div class="Board">
   @for (column of board()?.tables; track $index) {
-    <cp-column [column]="column"></cp-column>
+    <cp-column [column]="column" (cardRequestMoveRight)="onRequestMoveRight($event)"
+               (cardRequestMoveLeft)="onRequestMoveLeft($event)"></cp-column>
   }
 </div>

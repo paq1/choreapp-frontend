@@ -8,6 +8,7 @@ export interface ColumnModel {
 }
 
 export interface CardModel {
+  id: string,
   title: string,
   description: string,
   tags: string[]

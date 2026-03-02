@@ -8,7 +8,7 @@
 
   <div class="CardList">
     @for (card of current?.cards; track $index) {
-      <cp-card [card]="card"></cp-card>
+      <cp-card [card]="card" (moveLeft)="onCardRequestMoveLeft(card.id)" (moveRight)="onCardRequestMoveRight(card.id)"></cp-card>
     }
   </div>
 </div>
