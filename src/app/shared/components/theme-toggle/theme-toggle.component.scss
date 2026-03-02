@@ -1,0 +1,16 @@
+.theme-toggle {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 8px 14px;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  font-weight: 500;
+  transition: background 150ms ease, color 150ms ease, transform 150ms ease;
+}
+
+.theme-toggle:hover {
+  background: var(--surface-alt);
+  transform: translateY(-1px);
+}
