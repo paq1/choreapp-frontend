@@ -1,7 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { TodoApiService } from '../data-access/todo-api.service';
-import { BoardModel, BoardV2, CardInModel } from '../models/board.model';
-import { Subject } from 'rxjs';
+import {
+  BoardModel,
+  BoardV2,
+  CardInModel,
+  ColumnModelV2,
+  TicketModelV2,
+} from '../models/board.model';
+import { map, Subject, switchMap } from 'rxjs';
 import { Entity } from '../../../shared/models/entity';
 import { ColumnModelRemote, TicketModelRemote } from '../models/remote.model';
 
@@ -24,7 +30,45 @@ export class TodoService {
   tickets$ = this.ticketsSubject.asObservable();
 
   fetchBoardV2() {
+    this.fetchColumnV2();
+    this.fetchTicketV2();
 
+    this.columns$.pipe(
+      switchMap((columns) => {
+        return this.tickets$.pipe(
+          map((data) => {
+            return data.map((tickets) => {
+              return {
+                id: tickets.id,
+                columnId: tickets.attributes.columnId,
+                title: tickets.attributes.title,
+                order: tickets.attributes.order,
+                description: tickets.attributes.description,
+              } as TicketModelV2;
+            });
+          }),
+          map((tickets) => {
+            return columns.map((column) => {
+              return {
+                id: column.id,
+                title: column.attributes.title,
+                position: column.attributes.position,
+                tickets: tickets.filter((ticket) => ticket.columnId === column.id),
+                description: column.attributes.description,
+              } as ColumnModelV2;
+            });
+          }),
+        );
+      }),
+    )
+      .subscribe({
+        next: value => {
+          console.log('fetch column', value);
+          this.boardV2Subject.next({ columns: value });
+        },
+        error: err => console.error(err),
+      })
+    ;
   }
 
   fetchColumnV2(): void {

@@ -13,9 +13,10 @@ export interface ColumnModelV2 {
 
 export interface TicketModelV2 {
   id: string;
+  columnId: string;
   title: string;
-  description: string;
   order: number;
+  description?: string;
 }
 
 export interface BoardModel {
