@@ -121,7 +121,7 @@ export class TodoService {
   }
 
   addTask(tenant: string, task: CardInModel): void {
-    this.daoTodo.addTask(tenant, task);
-    this.fetchBoard(tenant);
+    this.daoTodo.addTask(task);
+    this.fetchBoardV2();
   }
 }

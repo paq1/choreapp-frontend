@@ -35,8 +35,13 @@ export interface CardModel {
   tags: string[]
 }
 
+export interface TicketFormModel {
+  title: string;
+  description?: string;
+}
+
 export interface CardInModel {
   title: string;
-  description: string;
-  tags: string[];
+  description?: string;
+  columnId: string;
 }

@@ -5,6 +5,7 @@ import {
   CardInModel,
   CardModel,
   ColumnModel,
+  TicketFormModel,
   TicketModelV2,
 } from '../../models/board.model';
 import { ColumnComponent } from './column-component/column.component';
@@ -20,7 +21,7 @@ import { AddTaskFormComponent } from './add-task-form-component/add-task-form.co
 export class BoardComponent {
   board = input<BoardV2>();
   @Output() shouldUpdate: EventEmitter<BoardV2> = new EventEmitter();
-  @Output() shouldAddTask: EventEmitter<CardInModel> = new EventEmitter();
+  @Output() shouldAddTask: EventEmitter<TicketFormModel> = new EventEmitter();
 
   isOpen: boolean = false;
 
@@ -28,7 +29,7 @@ export class BoardComponent {
     this.isOpen = !this.isOpen;
   }
 
-  onAddTask(task: CardInModel): void {
+  onAddTask(task: TicketFormModel): void {
     this.shouldAddTask.emit(task);
   }
 

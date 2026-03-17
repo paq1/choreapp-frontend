@@ -39,13 +39,14 @@ export class TodoApiService {
     this.mockBoard.data.attributes = board;
   }
 
-  addTask(tenant: string, task: CardInModel): void {
-    const nextId = uuid.v4();
-    this.mockBoard.data.attributes.tables[0].cards.push({
-      id: nextId,
+  addTask(task: CardInModel): void {
+    this.http.post(`${this.apiUrl}/tickets`, {
       title: task.title,
+      columnId: task.columnId,
       description: task.description,
-      tags: task.tags,
+    }).subscribe({
+      next: (value) => console.log('add task', value),
+      error: (err) => console.error(err),
     });
   }
 

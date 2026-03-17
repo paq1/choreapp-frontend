@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { BoardComponent } from '../../components/board-component/board.component';
-import { BoardModel, BoardV2, CardInModel } from '../../models/board.model';
+import { BoardModel, BoardV2, CardInModel, TicketFormModel } from '../../models/board.model';
 import { TodoService } from '../../services/todo.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -24,8 +24,15 @@ export class BoardPage implements OnInit {
     // this.todoService.updateBoard('pierre', board);
   }
 
-  onAddTask(task: CardInModel): void {
-    this.todoService.addTask('pierre', task);
+  onAddTask(task: TicketFormModel): void {
+    const col = this.boardSignal()?.columns[0]
+    if (!col) return;
+    this.todoService.addTask('pierre', {
+      title: task.title,
+      columnId: col.id,
+      description: task.description,
+    });
+    this.todoService.fetchBoardV2();
     console.log('onAddTask', task);
   }
 }

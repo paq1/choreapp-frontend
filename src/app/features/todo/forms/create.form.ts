@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CardInModel } from '../models/board.model';
+import { CardInModel, TicketFormModel } from '../models/board.model';
 
 export class CreateFormGroup extends FormGroup {
   constructor() {
@@ -16,11 +16,10 @@ export class CreateFormGroup extends FormGroup {
     return this.get('description');
   }
 
-  getValue(): CardInModel {
+  getValue(): TicketFormModel {
     return {
       title: this.title?.value,
       description: this.description?.value,
-      tags: [],
     };
   }
 }
