@@ -1,5 +1,5 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
-import { CardModel } from '../../../../models/board.model';
+import { CardModel, TicketModelV2 } from '../../../../models/board.model';
 
 @Component({
   selector: 'cp-card',
@@ -9,7 +9,7 @@ import { CardModel } from '../../../../models/board.model';
   standalone: true,
 })
 export class CardComponent {
-  card = input<CardModel>();
+  card = input<TicketModelV2>();
 
   @Output() moveRight: EventEmitter<string> = new EventEmitter();
   @Output() moveLeft: EventEmitter<string> = new EventEmitter();

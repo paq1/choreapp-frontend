@@ -1,5 +1,5 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
-import { ColumnModel } from '../../../models/board.model';
+import { ColumnModel, ColumnModelV2 } from '../../../models/board.model';
 import { CardComponent } from './card.component/card.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { CardComponent } from './card.component/card.component';
   standalone: true,
 })
 export class ColumnComponent {
-  column = input<ColumnModel>();
+  column = input<ColumnModelV2>();
 
   @Output() cardRequestMoveRight: EventEmitter<string> = new EventEmitter();
   @Output() cardRequestMoveLeft: EventEmitter<string> = new EventEmitter();
