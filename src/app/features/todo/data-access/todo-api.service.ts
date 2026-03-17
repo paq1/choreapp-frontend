@@ -1,10 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { JsonApiSingleModel } from '../../../shared/models/jsonapi.model';
-import { BoardModel, CardInModel, ColumnModel } from '../models/board.model';
+import { JsonApiManyModel, JsonApiSingleModel } from '../../../shared/models/jsonapi.model';
+import {
+  BoardModel,
+  CardInModel,
+  ColumnModel,
+} from '../models/board.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import * as uuid from 'uuid'; // TODO : a degager lorsque le back sera la
+import * as uuid from 'uuid';
+import { ColumnModelRemote, TicketModelRemote } from '../models/remote.model'; // TODO : a degager lorsque le back sera la
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +20,14 @@ export class TodoApiService {
   private http: HttpClient = inject(HttpClient);
 
   constructor() {}
+
+  fetchColumns(): Observable<JsonApiManyModel<ColumnModelRemote>> {
+    return this.http.get<JsonApiManyModel<ColumnModelRemote>>(`${this.apiUrl}/columns`);
+  }
+
+  fetchTickets(): Observable<JsonApiManyModel<TicketModelRemote>> {
+    return this.http.get<JsonApiManyModel<TicketModelRemote>>(`${this.apiUrl}/tickets`);
+  }
 
   fetchBoard(tenant: string): Observable<JsonApiSingleModel<BoardModel>> {
     // TODO : remplace lorsque l'api sera prete : return this.http.get<JsonApiSingleModel<BoardModel>>(`${this.apiUrl}/boards?tenant=${tenant}`);
@@ -38,6 +51,7 @@ export class TodoApiService {
 
   private mockBoard = {
     data: {
+      type: 'board',
       id: '1',
       attributes: {
         tables: [

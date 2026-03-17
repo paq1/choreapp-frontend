@@ -7,6 +7,7 @@ export interface JsonApiSingleModel<T> {
 }
 
 export interface Data<T> {
-  id: string
+  id: string;
+  type: string;
   attributes: T
 }

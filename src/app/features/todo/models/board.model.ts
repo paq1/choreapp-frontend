@@ -1,3 +1,23 @@
+
+export interface BoardV2 {
+  columns: ColumnModelV2[]
+}
+
+export interface ColumnModelV2 {
+  id: string;
+  title: string;
+  position: number;
+  tickets: TicketModelV2[];
+  description?: string;
+}
+
+export interface TicketModelV2 {
+  id: string;
+  title: string;
+  description: string;
+  order: number;
+}
+
 export interface BoardModel {
   tables: ColumnModel[]
 }
