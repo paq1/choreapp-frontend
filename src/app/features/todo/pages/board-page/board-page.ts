@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { BoardComponent } from '../../components/board-component/board.component';
-import { BoardModel, BoardV2, CardInModel, TicketFormModel } from '../../models/board.model';
+import { TicketFormModel } from '../../models/board.model';
 import { TodoService } from '../../services/todo.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -19,8 +19,12 @@ export class BoardPage implements OnInit {
     this.todoService.fetchBoardV2();
   }
 
-  onNewBoard(board: BoardV2): void {
-    console.log('onNewBoard', board);
+  onMoveColumn(idsColumnAndTiclet: [string, string] | undefined): void {
+    console.log('onMoveColumn', idsColumnAndTiclet);
+    if (!idsColumnAndTiclet) return;
+    const [columnId, ticketId] = idsColumnAndTiclet;
+    console.log('move ticket ', ticketId, ' to column ', columnId);
+    this.todoService.changeColumn(ticketId, columnId);
     // this.todoService.updateBoard('pierre', board);
   }
 

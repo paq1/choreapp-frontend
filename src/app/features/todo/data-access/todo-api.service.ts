@@ -28,6 +28,12 @@ export class TodoApiService {
     return this.http.delete(`${this.apiUrl}/tickets/${ticketId}`);
   }
 
+  changeColumnTicket(ticketId: string, columnId: string): Observable<unknown> {
+    return this.http.patch(`${this.apiUrl}/tickets/${ticketId}/command/change-column`, {
+      columnId: columnId,
+    });
+  }
+
   addTask(task: CardInModel): Observable<unknown> {
     return this.http.post(`${this.apiUrl}/tickets`, {
       title: task.title,

@@ -101,6 +101,16 @@ export class TodoService {
     });
   }
 
+  changeColumn(ticketId: string, columnId: string): void {
+    this.daoTodo.changeColumnTicket(ticketId, columnId).subscribe({
+      next: (value) => {
+        console.log('change column', value);
+        this.fetchBoardV2();
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
   deleteOneTicket(ticketId: string): void {
     this.daoTodo.deleteTicket(ticketId).subscribe({
       next: (value) => {
