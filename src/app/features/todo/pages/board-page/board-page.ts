@@ -19,16 +19,14 @@ export class BoardPage implements OnInit {
     this.todoService.fetchBoardV2();
   }
 
-  onMoveColumn(idsColumnAndTiclet: [string, string] | undefined): void {
-    console.log('onMoveColumn', idsColumnAndTiclet);
+  onMoveTicket(idsColumnAndTiclet: [string, string] | undefined): void {
     if (!idsColumnAndTiclet) return;
     const [columnId, ticketId] = idsColumnAndTiclet;
-    console.log('move ticket ', ticketId, ' to column ', columnId);
     this.todoService.changeColumn(ticketId, columnId);
     // this.todoService.updateBoard('pierre', board);
   }
 
-  onAddTask(task: TicketFormModel): void {
+  onAddTicket(task: TicketFormModel): void {
     const col = this.boardSignal()?.columns[0];
     if (!col) return;
     this.todoService.addTask({
@@ -36,10 +34,9 @@ export class BoardPage implements OnInit {
       columnId: col.id,
       description: task.description,
     });
-    console.log('onAddTask', task);
   }
 
-  onDeleteTask(id: string): void {
+  onDeleteTicket(id: string): void {
     console.log('onDeleteTask', id);
     this.todoService.deleteOneTicket(id);
   }
