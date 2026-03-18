@@ -5,7 +5,7 @@ export class CreateFormGroup extends FormGroup {
   constructor() {
     super({
       title: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
+      description: new FormControl(''),
     });
   }
 

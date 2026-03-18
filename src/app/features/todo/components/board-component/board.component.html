@@ -5,7 +5,7 @@
   }
 </div>
 <div>
-  <button (click)="onNewTask()">new</button>
+  <button style="width: 100px; margin-top: 24px" (click)="onNewTask()">new</button>
 
   @if (isOpen) {
     <cp-add-task-form (addTaskRequest)="onAddTask($event)"></cp-add-task-form>

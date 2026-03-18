@@ -1,14 +1,18 @@
 @let current = column();
 
 <div class="Column">
-  <span>TITLE column: </span>
+
+
   @if (current) {
-    <span>{{ column()?.title }} </span>
+    <div>{{ column()?.title }}</div>
   }
 
   <div class="CardList">
     @for (card of current?.tickets; track $index) {
-      <cp-card [card]="card" (moveLeft)="onCardRequestMoveLeft(card.id)" (moveRight)="onCardRequestMoveRight(card.id)" (clickOnDelete)="onCardRequestDelete(card.id)"></cp-card>
+      <cp-card [card]="card" (moveLeft)="onCardRequestMoveLeft(card.id)" (moveRight)="onCardRequestMoveRight(card.id)"
+               (clickOnDelete)="onCardRequestDelete(card.id)"></cp-card>
     }
   </div>
+
+
 </div>
