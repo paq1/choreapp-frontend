@@ -1,5 +1,5 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
-import { CardModel, TicketModelV2 } from '../../../../models/board.model';
+import { TicketModelV2 } from '../../../../models/board.model';
 
 @Component({
   selector: 'cp-card',
@@ -27,7 +27,6 @@ export class CardComponent {
   }
 
   onDelete(): void {
-    console.log('onDelete', this.card()?.id);
     this.clickOnDelete.emit(this.card()?.id);
   }
 }

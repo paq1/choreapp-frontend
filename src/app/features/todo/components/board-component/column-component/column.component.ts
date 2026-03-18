@@ -1,5 +1,5 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
-import { ColumnModel, ColumnModelV2 } from '../../../models/board.model';
+import { ColumnModelV2 } from '../../../models/board.model';
 import { CardComponent } from './card.component/card.component';
 
 @Component({
@@ -17,15 +17,12 @@ export class ColumnComponent {
   @Output() cardRequestDelete: EventEmitter<string> = new EventEmitter();
 
   onCardRequestMoveRight(id: string): void {
-    console.log('onCardRequestMoveRight', id);
     this.cardRequestMoveRight.emit(id);
   }
   onCardRequestMoveLeft(id: string): void {
-    console.log('onCardRequestMoveRight', id);
     this.cardRequestMoveLeft.emit(id);
   }
   onCardRequestDelete(id: string): void {
-    console.log('onCardRequestDelete', id);
     this.cardRequestDelete.emit(id);
   }
 }

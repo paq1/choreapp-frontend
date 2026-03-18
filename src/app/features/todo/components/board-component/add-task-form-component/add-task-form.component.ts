@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CreateFormGroup } from '../../../forms/create.form';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CardInModel, TicketFormModel } from '../../../models/board.model';
+import { TicketFormModel } from '../../../models/board.model';
 
 @Component({
   selector: 'cp-add-task-form',
@@ -15,7 +15,6 @@ export class AddTaskFormComponent {
   @Output() addTaskRequest: EventEmitter<TicketFormModel> = new EventEmitter();
 
   onSubmit(): void {
-    console.log('onSubmit', this.form.getValue());
     this.addTaskRequest.emit(this.form.getValue());
   }
 }

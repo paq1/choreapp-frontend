@@ -37,7 +37,6 @@ export class BoardPage implements OnInit {
   }
 
   onDeleteTicket(id: string): void {
-    console.log('onDeleteTask', id);
     this.todoService.deleteOneTicket(id);
   }
 }

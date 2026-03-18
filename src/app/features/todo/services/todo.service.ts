@@ -93,8 +93,7 @@ export class TodoService {
 
   addTask(task: CardInModel): void {
     this.daoTodo.addTask(task).subscribe({
-      next: (value) => {
-        console.log('add task', value);
+      next: () => {
         this.fetchBoardV2();
       },
       error: (err) => console.error(err),
@@ -103,8 +102,7 @@ export class TodoService {
 
   changeColumn(ticketId: string, columnId: string): void {
     this.daoTodo.changeColumnTicket(ticketId, columnId).subscribe({
-      next: (value) => {
-        console.log('change column', value);
+      next: () => {
         this.fetchBoardV2();
       },
       error: (err) => console.error(err),
@@ -113,8 +111,7 @@ export class TodoService {
 
   deleteOneTicket(ticketId: string): void {
     this.daoTodo.deleteTicket(ticketId).subscribe({
-      next: (value) => {
-        console.log('delete ticket', value);
+      next: () => {
         this.fetchBoardV2();
       },
       error: (err) => console.error(err),
