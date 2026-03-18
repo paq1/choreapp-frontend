@@ -1,14 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { JsonApiManyModel, JsonApiSingleModel } from '../../../shared/models/jsonapi.model';
-import {
-  BoardModel,
-  CardInModel,
-  ColumnModel,
-} from '../models/board.model';
+import { Observable } from 'rxjs';
+import { JsonApiManyModel } from '../../../shared/models/jsonapi.model';
+import { CardInModel } from '../models/board.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import * as uuid from 'uuid';
 import { ColumnModelRemote, TicketModelRemote } from '../models/remote.model'; // TODO : a degager lorsque le back sera la
 
 @Injectable({
@@ -29,66 +24,15 @@ export class TodoApiService {
     return this.http.get<JsonApiManyModel<TicketModelRemote>>(`${this.apiUrl}/tickets`);
   }
 
-  deleteTicket(ticketId: string): void {
-    this.http.delete(`${this.apiUrl}/tickets/${ticketId}`).subscribe({
-      next: (value) => {
-        console.log('delete ticket', value)
-      },
-      error: (err) => console.error(err),
-    });
+  deleteTicket(ticketId: string): Observable<unknown> {
+    return this.http.delete(`${this.apiUrl}/tickets/${ticketId}`);
   }
 
-  addTask(task: CardInModel): void {
-    this.http.post(`${this.apiUrl}/tickets`, {
+  addTask(task: CardInModel): Observable<unknown> {
+    return this.http.post(`${this.apiUrl}/tickets`, {
       title: task.title,
       columnId: task.columnId,
       description: task.description,
-    }).subscribe({
-      next: (value) => console.log('add task', value),
-      error: (err) => console.error(err),
     });
   }
-
-  private mockBoard = {
-    data: {
-      type: 'board',
-      id: '1',
-      attributes: {
-        tables: [
-          {
-            title: 'TODO',
-            cards: [
-              {
-                id: '1',
-                title: 'Faire a manger',
-                description: 'prendre en compte les 5 fruits et légume',
-                tags: ['code'],
-              },
-              {
-                id: '2',
-                title: 'Ranger la cuisine',
-                description: 'faire la vaisselle',
-                tags: ['code'],
-              },
-            ],
-          },
-          {
-            title: 'IN PROGRESS',
-            cards: [
-              {
-                id: '3',
-                title: 'Faire les courses',
-                description: 'acheter des légumes',
-                tags: ['chiant'],
-              },
-            ],
-          },
-          {
-            title: 'DONE',
-            cards: [],
-          },
-        ],
-      },
-    },
-  };
 }
