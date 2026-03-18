@@ -1,7 +1,7 @@
 <div class="Board">
   @for (column of board()?.columns; track $index) {
     <cp-column [column]="column" (cardRequestMoveRight)="onRequestMoveRight($event)"
-               (cardRequestMoveLeft)="onRequestMoveLeft($event)"></cp-column>
+               (cardRequestMoveLeft)="onRequestMoveLeft($event)" (cardRequestDelete)="onDeleteTask($event)"></cp-column>
   }
 </div>
 <div>

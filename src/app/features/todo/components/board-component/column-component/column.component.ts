@@ -14,6 +14,7 @@ export class ColumnComponent {
 
   @Output() cardRequestMoveRight: EventEmitter<string> = new EventEmitter();
   @Output() cardRequestMoveLeft: EventEmitter<string> = new EventEmitter();
+  @Output() cardRequestDelete: EventEmitter<string> = new EventEmitter();
 
   onCardRequestMoveRight(id: string): void {
     console.log('onCardRequestMoveRight', id);
@@ -22,5 +23,9 @@ export class ColumnComponent {
   onCardRequestMoveLeft(id: string): void {
     console.log('onCardRequestMoveRight', id);
     this.cardRequestMoveLeft.emit(id);
+  }
+  onCardRequestDelete(id: string): void {
+    console.log('onCardRequestDelete', id);
+    this.cardRequestDelete.emit(id);
   }
 }

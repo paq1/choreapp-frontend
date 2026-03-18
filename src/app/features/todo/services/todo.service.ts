@@ -17,9 +17,6 @@ import { ColumnModelRemote, TicketModelRemote } from '../models/remote.model';
 export class TodoService {
   private readonly daoTodo: TodoApiService = inject(TodoApiService);
 
-  private readonly boardSubject: Subject<BoardModel> = new Subject();
-  board$ = this.boardSubject.asObservable();
-
   private readonly boardV2Subject: Subject<BoardV2> = new Subject();
   boardV2$ = this.boardV2Subject.asObservable();
 
@@ -105,23 +102,15 @@ export class TodoService {
     });
   }
 
-  fetchBoard(tenant: string): void {
-    this.daoTodo.fetchBoard(tenant).subscribe({
-      next: (board) => {
-        console.log('fetch board', board);
-        this.boardSubject.next(board.data.attributes);
-      },
-      error: (err) => console.error(err),
-    });
-  }
-
-  updateBoard(tenant: string, board: BoardModel): void {
-    this.daoTodo.updateBoard(tenant, board);
-    this.fetchBoard(tenant);
-  }
-
-  addTask(tenant: string, task: CardInModel): void {
+  addTask(task: CardInModel): void {
     this.daoTodo.addTask(task);
+    console.log('fetch les données apres la creation');
+    this.fetchBoardV2();
+  }
+
+  deleteOneTicket(ticketId: string): void {
+    this.daoTodo.deleteTicket(ticketId);
+    console.log('delete ticket');
     this.fetchBoardV2();
   }
 }

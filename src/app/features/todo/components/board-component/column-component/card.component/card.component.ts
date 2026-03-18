@@ -13,6 +13,7 @@ export class CardComponent {
 
   @Output() moveRight: EventEmitter<string> = new EventEmitter();
   @Output() moveLeft: EventEmitter<string> = new EventEmitter();
+  @Output() clickOnDelete: EventEmitter<string> = new EventEmitter();
 
   onMoveRight(): void {
     const cardSync = this.card();
@@ -23,5 +24,10 @@ export class CardComponent {
     const cardSync = this.card();
     if (!cardSync) return;
     this.moveLeft.emit(cardSync.id);
+  }
+
+  onDelete(): void {
+    console.log('onDelete', this.card()?.id);
+    this.clickOnDelete.emit(this.card()?.id);
   }
 }

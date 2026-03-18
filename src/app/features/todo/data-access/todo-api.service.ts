@@ -29,14 +29,13 @@ export class TodoApiService {
     return this.http.get<JsonApiManyModel<TicketModelRemote>>(`${this.apiUrl}/tickets`);
   }
 
-  fetchBoard(tenant: string): Observable<JsonApiSingleModel<BoardModel>> {
-    // TODO : remplace lorsque l'api sera prete : return this.http.get<JsonApiSingleModel<BoardModel>>(`${this.apiUrl}/boards?tenant=${tenant}`);
-    return of(this.mockBoard);
-  }
-
-  updateBoard(tenant: string, board: BoardModel): void {
-    // TODO : remplace lorsque l'api sera prete : return this.http.get<JsonApiSingleModel<BoardModel>>(`${this.apiUrl}/boards?tenant=${tenant}`);
-    this.mockBoard.data.attributes = board;
+  deleteTicket(ticketId: string): void {
+    this.http.delete(`${this.apiUrl}/tickets/${ticketId}`).subscribe({
+      next: (value) => {
+        console.log('delete ticket', value)
+      },
+      error: (err) => console.error(err),
+    });
   }
 
   addTask(task: CardInModel): void {

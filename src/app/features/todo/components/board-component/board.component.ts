@@ -22,6 +22,7 @@ export class BoardComponent {
   board = input<BoardV2>();
   @Output() shouldUpdate: EventEmitter<BoardV2> = new EventEmitter();
   @Output() shouldAddTask: EventEmitter<TicketFormModel> = new EventEmitter();
+  @Output() shouldDeleteTask: EventEmitter<string> = new EventEmitter();
 
   isOpen: boolean = false;
 
@@ -31,6 +32,10 @@ export class BoardComponent {
 
   onAddTask(task: TicketFormModel): void {
     this.shouldAddTask.emit(task);
+  }
+
+  onDeleteTask(id: string): void {
+    this.shouldDeleteTask.emit(id);
   }
 
   onRequestMoveRight(id: string): void {

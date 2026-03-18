@@ -25,14 +25,18 @@ export class BoardPage implements OnInit {
   }
 
   onAddTask(task: TicketFormModel): void {
-    const col = this.boardSignal()?.columns[0]
+    const col = this.boardSignal()?.columns[0];
     if (!col) return;
-    this.todoService.addTask('pierre', {
+    this.todoService.addTask({
       title: task.title,
       columnId: col.id,
       description: task.description,
     });
-    this.todoService.fetchBoardV2();
     console.log('onAddTask', task);
+  }
+
+  onDeleteTask(id: string): void {
+    console.log('onDeleteTask', id);
+    this.todoService.deleteOneTicket(id);
   }
 }
