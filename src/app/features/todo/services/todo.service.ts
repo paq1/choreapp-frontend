@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { TodoApiService } from '../data-access/todo-api.service';
-import { BoardV2, CardInModel, ColumnModelV2, TicketModelV2 } from '../models/board.model';
+import { BoardV2, ColumnModelV2, TicketInModel, TicketModelV2 } from '../models/board.model';
 import { map, Subject, switchMap } from 'rxjs';
 import { Entity } from '../../../shared/models/entity';
 import { ColumnModelRemote, TicketModelRemote } from '../models/remote.model';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class TodoService {
 
   private readonly boardV2Subject: Subject<BoardV2> = new Subject();
   boardV2$ = this.boardV2Subject.asObservable();
+  boardSignal = toSignal(this.boardV2$);
 
   private readonly columnsSubject: Subject<Entity<ColumnModelRemote>[]> = new Subject();
   columns$ = this.columnsSubject.asObservable();
@@ -91,7 +93,7 @@ export class TodoService {
     });
   }
 
-  addTask(task: CardInModel): void {
+  addTask(task: TicketInModel): void {
     this.daoTodo.addTask(task).subscribe({
       next: () => {
         this.fetchBoardV2();
@@ -116,5 +118,52 @@ export class TodoService {
       },
       error: (err) => console.error(err),
     });
+  }
+
+  // TODO : use cases dans le backend
+  onRequestMoveRight(idTicket: string): void {
+    const boardSync = this.boardSignal();
+    if (!boardSync) return;
+    const index = this.fetchNextColumnIndex(idTicket, boardSync);
+    if (index === undefined) return;
+    if (index === boardSync.columns.length - 1) {
+      console.warn('onRequestMoveRight', 'last column');
+      return;
+    } else {
+      const nextColumn = boardSync.columns[index + 1];
+      this.changeColumn(idTicket, nextColumn.id);
+    }
+  }
+
+  // TODO : use cases dans le backend
+  onRequestMoveLeft(idTicket: string): void {
+    const boardSync = this.boardSignal();
+    if (!boardSync) return;
+    const index = this.fetchNextColumnIndex(idTicket, boardSync);
+    if (index === undefined) return;
+    if (index === 0) {
+      console.warn('onRequestMoveRight', 'first column');
+      return;
+    } else {
+      const nextColumn = boardSync.columns[index - 1];
+      this.changeColumn(idTicket, nextColumn.id);
+    }
+  }
+
+  // specific for move left and right use cases
+  private fetchNextColumnIndex(idTicket: string, board: BoardV2): number | undefined {
+    const found = board.columns
+      .map((c, i) => [c, i] as const)
+      .find(([c]) => {
+        return c.tickets.map((t) => t.id).includes(idTicket);
+      });
+
+    if (!found) {
+      console.warn('onRequestMoveRight', 'card not found');
+      return;
+    }
+
+    const [_, index] = found;
+    return index;
   }
 }

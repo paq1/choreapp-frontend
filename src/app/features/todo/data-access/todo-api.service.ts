@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { JsonApiManyModel } from '../../../shared/models/jsonapi.model';
-import { CardInModel } from '../models/board.model';
+import { TicketInModel } from '../models/board.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { ColumnModelRemote, TicketModelRemote } from '../models/remote.model'; // TODO : a degager lorsque le back sera la
@@ -34,7 +34,7 @@ export class TodoApiService {
     });
   }
 
-  addTask(task: CardInModel): Observable<unknown> {
+  addTask(task: TicketInModel): Observable<unknown> {
     return this.http.post(`${this.apiUrl}/tickets`, {
       title: task.title,
       columnId: task.columnId,

@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CardInModel, TicketFormModel } from '../models/board.model';
+import { TicketFormModel } from '../models/board.model';
 
 export class CreateFormGroup extends FormGroup {
   constructor() {

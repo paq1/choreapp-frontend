@@ -1,4 +1,3 @@
-
 export interface BoardV2 {
   columns: ColumnModelV2[]
 }
@@ -19,28 +18,12 @@ export interface TicketModelV2 {
   description?: string;
 }
 
-export interface BoardModel {
-  tables: ColumnModel[]
-}
-
-export interface ColumnModel {
-  title: string,
-  cards: CardModel[]
-}
-
-export interface CardModel {
-  id: string,
-  title: string,
-  description: string,
-  tags: string[]
-}
-
 export interface TicketFormModel {
   title: string;
   description?: string;
 }
 
-export interface CardInModel {
+export interface TicketInModel {
   title: string;
   description?: string;
   columnId: string;

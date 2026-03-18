@@ -19,11 +19,18 @@ export class BoardPage implements OnInit {
     this.todoService.fetchBoardV2();
   }
 
-  onMoveTicket(idsColumnAndTiclet: [string, string] | undefined): void {
-    if (!idsColumnAndTiclet) return;
-    const [columnId, ticketId] = idsColumnAndTiclet;
-    this.todoService.changeColumn(ticketId, columnId);
-    // this.todoService.updateBoard('pierre', board);
+  onMoveTicket(idsColumnAndTiclet: [string, string]): void {
+    const [ticketId, direction] = idsColumnAndTiclet;
+    switch (direction) {
+      case 'RIGHT':
+        this.todoService.onRequestMoveRight(ticketId);
+        break;
+      case 'LEFT':
+        this.todoService.onRequestMoveLeft(ticketId);
+        break;
+      default:
+        console.warn('Invalid direction:', direction);
+    }
   }
 
   onAddTicket(task: TicketFormModel): void {

@@ -1,7 +1,7 @@
 
 @let board = boardSignal();
 @if (board) {
-  <cp-board [board]="board" (shouldUpdate)="onMoveTicket($event)" (shouldAddTask)="onAddTicket($event)"
+  <cp-board [board]="board" (shouldMove)="onMoveTicket($event)" (shouldAddTask)="onAddTicket($event)"
             (shouldDeleteTask)="onDeleteTicket($event)"></cp-board>
 } @else {
   <div class="loading">Loading...</div>
