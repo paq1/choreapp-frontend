@@ -4,10 +4,10 @@
     <button style="border-radius: 6px" (click)="onDelete()">x</button>
   </div>
   <div style="display: flex; flex-direction: column; gap: 2px">
-    <span>title : {{ card()?.title }}</span>
-    <span>description : {{ card()?.description }}</span>
+    <span><span style="text-decoration: underline"><b>title</b></span> : {{ card()?.title }}</span>
+    <span><span style="text-decoration: underline"><b>description</b></span> : {{ card()?.description }}</span>
   </div>
-  <div>
+  <div style="display: flex; justify-content: center">
     <button (click)="onMoveLeft()"><<</button>
     <button (click)="onMoveRight()">>></button>
   </div>
