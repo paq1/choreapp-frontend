@@ -1,9 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { TodoApiService } from '../data-access/todo-api.service';
 import { BoardV2, ColumnModelV2, TicketInModel, TicketModelV2 } from '../models/board.model';
-import { map, Subject, switchMap } from 'rxjs';
-import { Entity } from '../../../shared/models/entity';
-import { ColumnModelRemote, TicketModelRemote } from '../models/remote.model';
+import { BehaviorSubject, catchError, forkJoin, map, of } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
@@ -12,85 +10,46 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class TodoService {
   private readonly daoTodo: TodoApiService = inject(TodoApiService);
 
-  private readonly boardV2Subject: Subject<BoardV2> = new Subject();
+  private readonly boardV2Subject: BehaviorSubject<BoardV2 | null> =
+    new BehaviorSubject<BoardV2 | null>(null);
   boardV2$ = this.boardV2Subject.asObservable();
   boardSignal = toSignal(this.boardV2$);
 
-  private readonly columnsSubject: Subject<Entity<ColumnModelRemote>[]> = new Subject();
-  columns$ = this.columnsSubject.asObservable();
-
-  private readonly ticketsSubject: Subject<Entity<TicketModelRemote>[]> = new Subject();
-  tickets$ = this.ticketsSubject.asObservable();
-
   fetchBoardV2() {
-    this.fetchColumnV2();
-    this.fetchTicketV2();
-
-    this.columns$
+    forkJoin({
+      columns: this.daoTodo.fetchColumns(),
+      tickets: this.daoTodo.fetchTickets(),
+    })
       .pipe(
-        switchMap((columns) => {
-          return this.tickets$.pipe(
-            map((data) => {
-              return data.map((tickets) => {
-                return {
-                  id: tickets.id,
-                  columnId: tickets.attributes.columnId,
-                  title: tickets.attributes.title,
-                  order: tickets.attributes.order,
-                  description: tickets.attributes.description,
-                } as TicketModelV2;
-              });
-            }),
-            map((tickets) => {
-              return columns.map((column) => {
-                return {
-                  id: column.id,
-                  title: column.attributes.title,
-                  position: column.attributes.position,
-                  tickets: tickets.filter((ticket) => ticket.columnId === column.id),
-                  description: column.attributes.description,
-                } as ColumnModelV2;
-              });
-            }),
-          );
+        map(({ columns, tickets }) => {
+          const mappedTickets = tickets.data.map((ticket) => {
+            return {
+              id: ticket.id,
+              columnId: ticket.attributes.columnId,
+              title: ticket.attributes.title,
+              order: ticket.attributes.order,
+              description: ticket.attributes.description,
+            } as TicketModelV2;
+          });
+
+          const mappedColumns = columns.data.map((column) => {
+            return {
+              id: column.id,
+              title: column.attributes.title,
+              position: column.attributes.position,
+              tickets: mappedTickets.filter((ticket) => ticket.columnId === column.id),
+              description: column.attributes.description,
+            } as ColumnModelV2;
+          });
+
+          return { columns: mappedColumns } as BoardV2;
+        }),
+        catchError((err) => {
+          console.error(err);
+          return of({ columns: [] } as BoardV2);
         }),
       )
-      .subscribe({
-        next: (value) => {
-          this.boardV2Subject.next({ columns: value });
-        },
-        error: (err) => console.error(err),
-      });
-  }
-
-  fetchColumnV2(): void {
-    this.daoTodo.fetchColumns().subscribe({
-      next: (columnsJsonAPi) => {
-        const entities = columnsJsonAPi.data.map((column) => ({
-          id: column.id,
-          type: column.type,
-          attributes: column.attributes,
-        }));
-
-        this.columnsSubject.next(entities);
-      },
-      error: (err) => console.error(err),
-    });
-  }
-
-  fetchTicketV2(): void {
-    this.daoTodo.fetchTickets().subscribe({
-      next: (ticketsJsonAPi) => {
-        const entities = ticketsJsonAPi.data.map((tickets) => ({
-          id: tickets.id,
-          type: tickets.type,
-          attributes: tickets.attributes,
-        }));
-
-        this.ticketsSubject.next(entities);
-      },
-      error: (err) => console.error(err),
-    });
+      .subscribe((board) => this.boardV2Subject.next(board));
   }
 
   addTask(task: TicketInModel): void {
