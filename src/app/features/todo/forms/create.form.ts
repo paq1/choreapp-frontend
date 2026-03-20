@@ -5,7 +5,7 @@ export class CreateFormGroup extends FormGroup {
   constructor() {
     super({
       title: new FormControl('', Validators.required),
-      description: new FormControl(''),
+      description: new FormControl(undefined),
     });
   }
 
@@ -19,7 +19,7 @@ export class CreateFormGroup extends FormGroup {
   getValue(): TicketFormModel {
     return {
       title: this.title?.value,
-      description: this.description?.value,
+      description: this.description?.value === null ? undefined : this.description?.value,
     };
   }
 }
