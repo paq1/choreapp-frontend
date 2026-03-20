@@ -4,7 +4,7 @@ import { JsonApiManyModel } from '../../../shared/models/jsonapi.model';
 import { TicketInModel } from '../models/board.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { ColumnModelRemote, TicketModelRemote } from '../models/remote.model'; // TODO : a degager lorsque le back sera la
+import { ColumnModelRemote, TicketModelRemote } from '../models/remote.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,11 +28,17 @@ export class TodoApiService {
     return this.http.delete(`${this.apiUrl}/tickets/${ticketId}`);
   }
 
-  changeColumnTicket(ticketId: string, columnId: string): Observable<unknown> {
-    return this.http.patch(`${this.apiUrl}/tickets/${ticketId}/command/change-column`, {
-      columnId: columnId,
+  moveNextColumn(ticketId: string, direction: 'LEFT' | 'RIGHT'): Observable<unknown> {
+    return this.http.patch(`${this.apiUrl}/tickets/${ticketId}/command/move-left-or-right`, {
+      direction: direction,
     });
   }
+
+  // changeColumnTicket(ticketId: string, columnId: string): Observable<unknown> {
+  //   return this.http.patch(`${this.apiUrl}/tickets/${ticketId}/command/change-column`, {
+  //     columnId: columnId,
+  //   });
+  // }
 
   addTask(task: TicketInModel): Observable<unknown> {
     return this.http.post(`${this.apiUrl}/tickets`, {
