@@ -4,12 +4,15 @@
 
 
   @if (current) {
-    <span style="font-size: 20px"><b>{{ column()?.title }}</b></span>
+    <div style="margin-bottom: 12px;">
+      <span style="font-size: 20px"><b>{{ column()?.title }}</b></span>
+    </div>
   }
 
   <div class="CardList">
     @for (card of current?.tickets; track $index) {
-      <cp-card [card]="card" (moveLeft)="onCardRequestMoveLeft(card.id)" (moveRight)="onCardRequestMoveRight(card.id)"
+      <cp-card style="margin-top: 12px" [card]="card" (moveLeft)="onCardRequestMoveLeft(card.id)"
+               (moveRight)="onCardRequestMoveRight(card.id)"
                (clickOnDelete)="onCardRequestDelete(card.id)" (currentDragStart)="onCardDragStart($event)"></cp-card>
     }
   </div>
