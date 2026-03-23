@@ -16,6 +16,7 @@ export class BoardComponent {
   @Output() shouldMove: EventEmitter<[string, string]> = new EventEmitter();
   @Output() shouldAddTask: EventEmitter<TicketFormModel> = new EventEmitter();
   @Output() shouldDeleteTask: EventEmitter<string> = new EventEmitter();
+  @Output() changeCard: EventEmitter<[string, string]> = new EventEmitter();
 
   isOpen: boolean = false;
 
@@ -37,5 +38,10 @@ export class BoardComponent {
 
   onRequestMoveLeft(idTicket: string): void {
     this.shouldMove.emit([idTicket, 'LEFT']);
+  }
+
+  onChangeCard(idsColumnAndTiclet: [string, string]): void {
+    console.log('change card', idsColumnAndTiclet);
+    this.changeCard.emit(idsColumnAndTiclet);
   }
 }

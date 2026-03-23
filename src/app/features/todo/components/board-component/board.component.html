@@ -1,7 +1,8 @@
 <div class="Board" cdkDropListGroup>
   @for (column of board()?.columns; track $index) {
     <cp-column [column]="column" (cardRequestMoveRight)="onRequestMoveRight($event)"
-               (cardRequestMoveLeft)="onRequestMoveLeft($event)" (cardRequestDelete)="onDeleteTask($event)"></cp-column>
+               (cardRequestMoveLeft)="onRequestMoveLeft($event)" (cardRequestDelete)="onDeleteTask($event)"
+               (changeCard)="onChangeCard($event)"></cp-column>
   }
 </div>
 <div>

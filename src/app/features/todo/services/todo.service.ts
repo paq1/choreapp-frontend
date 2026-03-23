@@ -79,6 +79,15 @@ export class TodoService {
     });
   }
 
+  changeColumnTicket(ticketId: string, columnId: string): void {
+    this.daoTodo.changeColumnTicket(ticketId, columnId).subscribe({
+      next: () => {
+        this.fetchBoardV2();
+      },
+      error: (err) => console.error(err),
+    })
+  }
+
   onRequestMoveLeft(idTicket: string): void {
     this.daoTodo.moveNextColumn(idTicket, 'LEFT').subscribe({
       next: () => {

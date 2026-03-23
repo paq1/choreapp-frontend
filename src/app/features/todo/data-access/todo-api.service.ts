@@ -34,11 +34,11 @@ export class TodoApiService {
     });
   }
 
-  // changeColumnTicket(ticketId: string, columnId: string): Observable<unknown> {
-  //   return this.http.patch(`${this.apiUrl}/tickets/${ticketId}/command/change-column`, {
-  //     columnId: columnId,
-  //   });
-  // }
+  changeColumnTicket(ticketId: string, columnId: string): Observable<unknown> {
+    return this.http.patch(`${this.apiUrl}/tickets/${ticketId}/command/change-column`, {
+      columnId: columnId,
+    });
+  }
 
   addTask(task: TicketInModel): Observable<unknown> {
     return this.http.post(`${this.apiUrl}/tickets`, {

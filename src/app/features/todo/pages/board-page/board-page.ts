@@ -19,6 +19,11 @@ export class BoardPage implements OnInit {
     this.todoService.fetchBoardV2();
   }
 
+  onCardChange(idsColumnAndTiclet: [string, string]): void {
+    const [ticketId, columnId] = idsColumnAndTiclet;
+    this.todoService.changeColumnTicket(ticketId, columnId);
+  }
+
   onMoveTicket(idsColumnAndTiclet: [string, string]): void {
     const [ticketId, direction] = idsColumnAndTiclet;
     switch (direction) {
