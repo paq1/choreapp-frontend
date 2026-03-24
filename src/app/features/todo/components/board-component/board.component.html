@@ -1,14 +1,20 @@
+<div>
+  <button style="margin-top: 24px; margin-left: 10px; border-radius: 10px; font-size: 25px" (click)="onNewTask()">+
+  </button>
+
+  @if (isOpen) {
+    <div style="margin-top: 24px; margin-left: 25px">
+      <cp-add-task-form (addTaskRequest)="onAddTask($event)"></cp-add-task-form>
+    </div>
+
+  }
+</div>
+
+
 <div class="Board" cdkDropListGroup>
   @for (column of board()?.columns; track $index) {
     <cp-column [column]="column" (cardRequestMoveRight)="onRequestMoveRight($event)"
                (cardRequestMoveLeft)="onRequestMoveLeft($event)" (cardRequestDelete)="onDeleteTask($event)"
                (changeCard)="onChangeCard($event)"></cp-column>
-  }
-</div>
-<div>
-  <button style="width: 100px; margin-top: 24px" (click)="onNewTask()">new</button>
-
-  @if (isOpen) {
-    <cp-add-task-form (addTaskRequest)="onAddTask($event)"></cp-add-task-form>
   }
 </div>

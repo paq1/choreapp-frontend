@@ -1,0 +1,22 @@
+form {
+  max-width: 400px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.WrapperFields {
+  display: flex;
+  flex-direction: column;
+}
+
+.TitleAndValue {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.SubmitButton {
+
+}
