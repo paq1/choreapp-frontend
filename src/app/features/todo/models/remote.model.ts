@@ -8,5 +8,6 @@ export interface TicketModelRemote {
   columnId: string;
   title: string;
   order: number;
+  priority: number;
   description?: string;
 }

@@ -20,5 +20,15 @@
     }
   </div>
 
+  <div class="field">
+    <label for="priority">Description</label>
+    <input class="InputClassique" id="priority" type="number" formControlName="priority" placeholder=1 />
+    @if (form.priority?.touched && form.priority?.invalid) {
+      <div style="color: red;">
+        La priority est requis.
+      </div>
+    }
+  </div>
+
   <button class="ButtonWhite u-has-margin-left-16 u-has-padding-8 u-has-margin-top-16 u-is-txt-20" type="submit">Ajouter</button>
 </form>

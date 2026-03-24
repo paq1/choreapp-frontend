@@ -1,14 +1,19 @@
-<div class="Card" cdkDrag (cdkDragStarted)="onDragStart()">
+@let currentCard = card();
 
-  <div style="display: flex; justify-content: flex-end">
-    <button style="border-radius: 6px" (click)="onDelete()">x</button>
+@if (currentCard) {
+  <div class="Card" cdkDrag (cdkDragStarted)="onDragStart()">
+
+    <div style="display: flex; justify-content: flex-end">
+      <button style="border-radius: 6px" (click)="onDelete()">x</button>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      <span><span style="text-decoration: underline"><b>title</b></span> : <b>{{ currentCard.title }}</b></span>
+      <span><span style="text-decoration: underline"><b>description</b></span> : {{ currentCard.description }}</span>
+      <span><span style="text-decoration: underline"><b>priority</b></span> : {{ currentCard.priority }}</span>
+    </div>
+    <div style="display: flex; justify-content: center">
+      <button (click)="onMoveLeft()"><<</button>
+      <button (click)="onMoveRight()">>></button>
+    </div>
   </div>
-  <div style="display: flex; flex-direction: column; gap: 2px">
-    <span><span style="text-decoration: underline"><b>title</b></span> : <b>{{ card()?.title }}</b></span>
-    <span><span style="text-decoration: underline"><b>description</b></span> : {{ card()?.description }}</span>
-  </div>
-  <div style="display: flex; justify-content: center">
-    <button (click)="onMoveLeft()"><<</button>
-    <button (click)="onMoveRight()">>></button>
-  </div>
-</div>
+}

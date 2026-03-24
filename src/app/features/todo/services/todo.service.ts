@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { TodoApiService } from '../data-access/todo-api.service';
 import { BoardV2, ColumnModelV2, TicketInModel, TicketModelV2 } from '../models/board.model';
 import { BehaviorSubject, catchError, forkJoin, map, of } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +12,6 @@ export class TodoService {
   private readonly boardV2Subject: BehaviorSubject<BoardV2 | null> =
     new BehaviorSubject<BoardV2 | null>(null);
   boardV2$ = this.boardV2Subject.asObservable();
-  boardSignal = toSignal(this.boardV2$);
 
   fetchBoardV2() {
     forkJoin({
@@ -28,6 +26,7 @@ export class TodoService {
               columnId: ticket.attributes.columnId,
               title: ticket.attributes.title,
               order: ticket.attributes.order,
+              priority: ticket.attributes.priority,
               description: ticket.attributes.description,
             } as TicketModelV2;
           });
@@ -85,7 +84,7 @@ export class TodoService {
         this.fetchBoardV2();
       },
       error: (err) => console.error(err),
-    })
+    });
   }
 
   onRequestMoveLeft(idTicket: string): void {

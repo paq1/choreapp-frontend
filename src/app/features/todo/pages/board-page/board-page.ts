@@ -44,6 +44,7 @@ export class BoardPage implements OnInit {
     this.todoService.addTask({
       title: task.title,
       columnId: col.id,
+      priority: task.priority,
       description: task.description,
     });
   }
