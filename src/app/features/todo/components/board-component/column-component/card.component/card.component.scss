@@ -8,4 +8,21 @@
   background-color: var(--surface);
   box-shadow: var(--shadow);
   width: 400px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.DragHandleWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.DragHandle {
+  cursor: move;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--surface-alt);
+  width: 30px;
+  height: 30px;
 }

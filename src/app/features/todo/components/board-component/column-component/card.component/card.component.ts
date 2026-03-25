@@ -1,11 +1,11 @@
 import { Component, EventEmitter, inject, input, Output } from '@angular/core';
 import { TicketModelV2 } from '../../../../models/board.model';
-import { CdkDrag } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { DragAndDropService } from '../../../../services/drag-and-drop.service';
 
 @Component({
   selector: 'cp-card',
-  imports: [CdkDrag],
+  imports: [CdkDrag, CdkDragHandle],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
   standalone: true,
