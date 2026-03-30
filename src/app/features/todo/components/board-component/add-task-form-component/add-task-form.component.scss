@@ -1,5 +1,5 @@
 form {
-  max-width: 400px;
+  max-width: 825px;
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -19,4 +19,14 @@ form {
 
 .SubmitButton {
 
+}
+
+.InputClassique {
+  margin-left: 24px;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 15px;
+  border: 2px solid #d0d0d0;
+  border-radius: 8px;
+  outline: none;
 }
