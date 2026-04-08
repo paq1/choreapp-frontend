@@ -21,6 +21,9 @@ export class BoardPage implements OnInit {
 
   onProjectChange(selected: any) {
     // todo : changer de projet :)
+    if (this.selectedProject.trim() === '') {
+      return;
+    }
     console.log('change project : ' + this.selectedProject);
   }
 
