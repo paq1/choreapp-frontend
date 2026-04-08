@@ -11,3 +11,8 @@ export interface TicketModelRemote {
   priority: number;
   description?: string;
 }
+
+export interface ProjectModelRemote {
+  title: string;
+  description?: string;
+}

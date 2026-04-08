@@ -1,7 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { TodoApiService } from '../data-access/todo-api.service';
 import { BoardV2, ColumnModelV2, TicketInModel, TicketModelV2 } from '../models/board.model';
 import { BehaviorSubject, catchError, forkJoin, map, of } from 'rxjs';
+import { JsonApiManyModel } from '../../../shared/models/jsonapi.model';
+import { ProjectModelRemote } from '../models/remote.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +14,18 @@ export class TodoService {
   private readonly boardV2Subject: BehaviorSubject<BoardV2 | null> =
     new BehaviorSubject<BoardV2 | null>(null);
   boardV2$ = this.boardV2Subject.asObservable();
+
+  private _projectsSignal = signal<JsonApiManyModel<ProjectModelRemote> | null>(null);
+  public readonly projectsSignal = this._projectsSignal.asReadonly();
+
+  fetchProjects(): void {
+    this.daoTodo.fetchProjects().subscribe({
+      next: (data) => {
+        this._projectsSignal.set(data);
+      },
+      error: (err) => console.error(err),
+    });
+  }
 
   fetchBoardV2() {
     forkJoin({

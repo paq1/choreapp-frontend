@@ -3,10 +3,11 @@ import { BoardComponent } from '../../components/board-component/board.component
 import { TicketFormModel } from '../../models/board.model';
 import { TodoService } from '../../services/todo.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-board-page',
-  imports: [BoardComponent],
+  imports: [BoardComponent, FormsModule],
   templateUrl: './board-page.html',
   styleUrl: './board-page.scss',
   standalone: true,
@@ -14,8 +15,17 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class BoardPage implements OnInit {
   private readonly todoService = inject(TodoService);
   boardSignal = toSignal(this.todoService.boardV2$);
+  projectsSignal = this.todoService.projectsSignal;
+
+  selectedProject = '';
+
+  onProjectChange(selected: any) {
+    // todo : changer de projet :)
+    console.log('change project : ' + this.selectedProject);
+  }
 
   ngOnInit(): void {
+    this.todoService.fetchProjects();
     this.todoService.fetchBoardV2();
   }
 

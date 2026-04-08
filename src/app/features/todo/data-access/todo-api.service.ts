@@ -4,7 +4,7 @@ import { JsonApiManyModel } from '../../../shared/models/jsonapi.model';
 import { TicketInModel } from '../models/board.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { ColumnModelRemote, TicketModelRemote } from '../models/remote.model';
+import { ColumnModelRemote, ProjectModelRemote, TicketModelRemote } from '../models/remote.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,10 @@ export class TodoApiService {
   private http: HttpClient = inject(HttpClient);
 
   constructor() {}
+
+  fetchProjects(): Observable<JsonApiManyModel<ProjectModelRemote>> {
+    return this.http.get<JsonApiManyModel<ProjectModelRemote>>(`${this.apiUrl}/projects`);
+  }
 
   fetchColumns(): Observable<JsonApiManyModel<ColumnModelRemote>> {
     return this.http.get<JsonApiManyModel<ColumnModelRemote>>(`${this.apiUrl}/columns`);

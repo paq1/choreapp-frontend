@@ -1,3 +1,16 @@
+@let projects = projectsSignal();
+@if (projects) {
+  <label>Projects</label>
+  <select [(ngModel)]="selectedProject" name="projects" id="projects" (change)="onProjectChange($event)">
+
+    <option value="">Select option</option>
+    @for (project of projects.data; track $index) {
+      <option [value]="project.id" value="{{ project.id }}">{{ project.attributes.title }}</option>
+    }
+  </select>
+} @else {
+  <div class="loading">Loading...</div>
+}
 
 @let board = boardSignal();
 @if (board) {
