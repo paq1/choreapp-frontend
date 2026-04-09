@@ -30,4 +30,5 @@ export interface TicketInModel {
   description?: string;
   priority: number;
   columnId: string;
+  projectId?: string;
 }

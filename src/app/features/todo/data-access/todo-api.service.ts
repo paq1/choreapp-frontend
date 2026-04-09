@@ -52,6 +52,7 @@ export class TodoApiService {
       columnId: task.columnId,
       description: task.description,
       priority: task.priority,
+      projectId: task.projectId,
     });
   }
 }

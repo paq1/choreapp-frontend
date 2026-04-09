@@ -20,9 +20,6 @@ export class BoardPage implements OnInit {
   selectedProject = '';
 
   onProjectChange() {
-    if (this.selectedProject.trim() === '') {
-      return;
-    }
     this.todoService.changeProject(this.selectedProject);
   }
 
@@ -33,7 +30,7 @@ export class BoardPage implements OnInit {
 
   onCardChange(idsColumnAndTiclet: [string, string]): void {
     const [ticketId, columnId] = idsColumnAndTiclet;
-    this.todoService.changeColumnTicket(ticketId, columnId);
+    this.todoService.changeColumnTicket(ticketId, columnId, this.selectedProject);
   }
 
   onMoveTicket(idsColumnAndTiclet: [string, string]): void {
@@ -53,12 +50,16 @@ export class BoardPage implements OnInit {
   onAddTicket(task: TicketFormModel): void {
     const col = this.boardSignal()?.columns[0];
     if (!col) return;
-    this.todoService.addTask({
-      title: task.title,
-      columnId: col.id,
-      priority: task.priority,
-      description: task.description,
-    });
+    this.todoService.addTask(
+      {
+        title: task.title,
+        columnId: col.id,
+        priority: task.priority,
+        description: task.description,
+        projectId: this.selectedProject === '' ? undefined : this.selectedProject,
+      },
+      this.selectedProject,
+    );
   }
 
   onDeleteTicket(id: string): void {

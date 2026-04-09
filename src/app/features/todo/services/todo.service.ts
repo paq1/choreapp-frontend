@@ -69,10 +69,10 @@ export class TodoService {
       .subscribe((board) => this.boardV2Subject.next(board));
   }
 
-  addTask(task: TicketInModel): void {
+  addTask(task: TicketInModel, projectId?: string): void {
     this.daoTodo.addTask(task).subscribe({
       next: () => {
-        this.fetchBoardV2();
+        this.fetchBoardV2(projectId);
       },
       error: (err) => console.error(err),
     });
@@ -96,10 +96,10 @@ export class TodoService {
     });
   }
 
-  changeColumnTicket(ticketId: string, columnId: string): void {
+  changeColumnTicket(ticketId: string, columnId: string, projectId?: string): void {
     this.daoTodo.changeColumnTicket(ticketId, columnId).subscribe({
       next: () => {
-        this.fetchBoardV2();
+        this.fetchBoardV2(projectId);
       },
       error: (err) => console.error(err),
     });
