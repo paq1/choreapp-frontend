@@ -1,6 +1,12 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { TodoApiService } from '../data-access/todo-api.service';
-import { BoardV2, ColumnInModel, ColumnModelV2, TicketInModel, TicketModelV2 } from '../models/board.model';
+import {
+  BoardV2,
+  ColumnInModel,
+  ColumnModelV2,
+  TicketInModel,
+  TicketModelV2,
+} from '../models/board.model';
 import { BehaviorSubject, catchError, forkJoin, map, of } from 'rxjs';
 import { JsonApiManyModel } from '../../../shared/models/jsonapi.model';
 import { ProjectModelRemote } from '../models/remote.model';
