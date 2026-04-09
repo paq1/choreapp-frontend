@@ -74,6 +74,6 @@ export class BoardPage implements OnInit {
   }
 
   onDeleteTicket(id: string): void {
-    this.todoService.deleteOneTicket(id);
+    this.todoService.deleteOneTicket(id, this.selectedProject);
   }
 }

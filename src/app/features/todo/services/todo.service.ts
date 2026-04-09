@@ -93,10 +93,10 @@ export class TodoService {
     });
   }
 
-  deleteOneTicket(ticketId: string): void {
+  deleteOneTicket(ticketId: string, projectId?: string): void {
     this.daoTodo.deleteTicket(ticketId).subscribe({
       next: () => {
-        this.fetchBoardV2();
+        this.fetchBoardV2(projectId);
       },
       error: (err) => console.error(err),
     });
