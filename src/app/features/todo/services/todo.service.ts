@@ -27,10 +27,14 @@ export class TodoService {
     });
   }
 
-  fetchBoardV2() {
+  changeProject(idProject: string) {
+    this.fetchBoardV2(idProject);
+  }
+
+  fetchBoardV2(projectId?: string) {
     forkJoin({
-      columns: this.daoTodo.fetchColumns(),
-      tickets: this.daoTodo.fetchTickets(),
+      columns: this.daoTodo.fetchColumns(projectId),
+      tickets: this.daoTodo.fetchTickets(projectId),
     })
       .pipe(
         map(({ columns, tickets }) => {

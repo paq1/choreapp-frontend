@@ -19,12 +19,11 @@ export class BoardPage implements OnInit {
 
   selectedProject = '';
 
-  onProjectChange(selected: any) {
-    // todo : changer de projet :)
+  onProjectChange() {
     if (this.selectedProject.trim() === '') {
       return;
     }
-    console.log('change project : ' + this.selectedProject);
+    this.todoService.changeProject(this.selectedProject);
   }
 
   ngOnInit(): void {

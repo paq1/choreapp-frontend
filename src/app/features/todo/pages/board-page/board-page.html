@@ -1,7 +1,7 @@
 @let projects = projectsSignal();
 @if (projects) {
   <label>Projects</label>
-  <select [(ngModel)]="selectedProject" name="projects" id="projects" (change)="onProjectChange($event)">
+  <select [(ngModel)]="selectedProject" name="projects" id="projects" (change)="onProjectChange()">
 
     <option value="">Select option</option>
     @for (project of projects.data; track $index) {

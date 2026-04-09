@@ -20,12 +20,14 @@ export class TodoApiService {
     return this.http.get<JsonApiManyModel<ProjectModelRemote>>(`${this.apiUrl}/projects`);
   }
 
-  fetchColumns(): Observable<JsonApiManyModel<ColumnModelRemote>> {
-    return this.http.get<JsonApiManyModel<ColumnModelRemote>>(`${this.apiUrl}/columns`);
+  fetchColumns(projectId?: string): Observable<JsonApiManyModel<ColumnModelRemote>> {
+    const filter = projectId ? `?filter[projectId]=${projectId}` : '';
+    return this.http.get<JsonApiManyModel<ColumnModelRemote>>(`${this.apiUrl}/columns${filter}`);
   }
 
-  fetchTickets(): Observable<JsonApiManyModel<TicketModelRemote>> {
-    return this.http.get<JsonApiManyModel<TicketModelRemote>>(`${this.apiUrl}/tickets`);
+  fetchTickets(projectId?: string): Observable<JsonApiManyModel<TicketModelRemote>> {
+    const filter = projectId ? `?filter[projectId]=${projectId}` : '';
+    return this.http.get<JsonApiManyModel<TicketModelRemote>>(`${this.apiUrl}/tickets${filter}`);
   }
 
   deleteTicket(ticketId: string): Observable<unknown> {
