@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { BoardComponent } from '../../components/board-component/board.component';
-import { TicketFormModel } from '../../models/board.model';
+import { ColumnFormModel, TicketFormModel } from '../../models/board.model';
 import { TodoService } from '../../services/todo.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
@@ -56,6 +56,17 @@ export class BoardPage implements OnInit {
         columnId: col.id,
         priority: task.priority,
         description: task.description,
+        projectId: this.selectedProject === '' ? undefined : this.selectedProject,
+      },
+      this.selectedProject,
+    );
+  }
+
+  onAddColumn(column: ColumnFormModel): void {
+    this.todoService.addColumn(
+      {
+        title: column.title,
+        description: column.description,
         projectId: this.selectedProject === '' ? undefined : this.selectedProject,
       },
       this.selectedProject,

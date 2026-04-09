@@ -1,5 +1,5 @@
 export interface BoardV2 {
-  columns: ColumnModelV2[]
+  columns: ColumnModelV2[];
 }
 
 export interface ColumnModelV2 {
@@ -30,5 +30,16 @@ export interface TicketInModel {
   description?: string;
   priority: number;
   columnId: string;
+  projectId?: string;
+}
+
+export interface ColumnFormModel {
+  title: string;
+  description?: string;
+}
+
+export interface ColumnInModel {
+  title: string;
+  description?: string;
   projectId?: string;
 }

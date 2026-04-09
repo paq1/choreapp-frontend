@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { TodoApiService } from '../data-access/todo-api.service';
-import { BoardV2, ColumnModelV2, TicketInModel, TicketModelV2 } from '../models/board.model';
+import { BoardV2, ColumnInModel, ColumnModelV2, TicketInModel, TicketModelV2 } from '../models/board.model';
 import { BehaviorSubject, catchError, forkJoin, map, of } from 'rxjs';
 import { JsonApiManyModel } from '../../../shared/models/jsonapi.model';
 import { ProjectModelRemote } from '../models/remote.model';
@@ -71,6 +71,15 @@ export class TodoService {
 
   addTask(task: TicketInModel, projectId?: string): void {
     this.daoTodo.addTask(task).subscribe({
+      next: () => {
+        this.fetchBoardV2(projectId);
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
+  addColumn(column: ColumnInModel, projectId?: string): void {
+    this.daoTodo.addColumn(column).subscribe({
       next: () => {
         this.fetchBoardV2(projectId);
       },

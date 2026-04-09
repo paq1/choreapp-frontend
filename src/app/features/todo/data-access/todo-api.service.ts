@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { JsonApiManyModel } from '../../../shared/models/jsonapi.model';
-import { TicketInModel } from '../models/board.model';
+import { ColumnInModel, TicketInModel } from '../models/board.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { ColumnModelRemote, ProjectModelRemote, TicketModelRemote } from '../models/remote.model';
@@ -53,6 +53,14 @@ export class TodoApiService {
       description: task.description,
       priority: task.priority,
       projectId: task.projectId,
+    });
+  }
+
+  addColumn(column: ColumnInModel): Observable<unknown> {
+    return this.http.post(`${this.apiUrl}/columns`, {
+      title: column.title,
+      description: column.description,
+      projectId: column.projectId,
     });
   }
 }

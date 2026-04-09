@@ -17,4 +17,14 @@
                (cardRequestMoveLeft)="onRequestMoveLeft($event)" (cardRequestDelete)="onDeleteTask($event)"
                (changeCard)="onChangeCard($event)"></cp-column>
   }
+
+  @if (isOpenColumn) {
+    <cp-add-column-form (addColumnRequest)="onAddColumn($event)"></cp-add-column-form>
+  }
+
+  <div>
+    <button style="margin-top: 24px; margin-left: 10px; border-radius: 10px; font-size: 25px" (click)="onNewColumn()">+
+    </button>
+  </div>
+
 </div>
