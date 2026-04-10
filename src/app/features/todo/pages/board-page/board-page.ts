@@ -1,13 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { BoardComponent } from '../../components/board-component/board.component';
-import { ColumnFormModel, TicketFormModel } from '../../models/board.model';
+import { ColumnFormModel, ProjectFormModel, TicketFormModel } from '../../models/board.model';
 import { TodoService } from '../../services/todo.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
+import { AddProjectForm } from '../../components/board-component/add-project-form/add-project-form';
 
 @Component({
   selector: 'app-board-page',
-  imports: [BoardComponent, FormsModule],
+  imports: [BoardComponent, FormsModule, AddProjectForm],
   templateUrl: './board-page.html',
   styleUrl: './board-page.scss',
   standalone: true,
@@ -16,8 +17,17 @@ export class BoardPage implements OnInit {
   private readonly todoService = inject(TodoService);
   boardSignal = toSignal(this.todoService.boardV2$);
   projectsSignal = this.todoService.projectsSignal;
-
   selectedProject = '';
+  isOpenNewProjectForm = false;
+
+  onNewProject() {
+    this.isOpenNewProjectForm = !this.isOpenNewProjectForm;
+  }
+
+  onAddProject(form: ProjectFormModel) {
+    this.todoService.addProject(form, this.selectedProject);
+    this.isOpenNewProjectForm = false;
+  }
 
   onProjectChange() {
     this.todoService.changeProject(this.selectedProject);

@@ -1,16 +1,32 @@
-@let projects = projectsSignal();
-@if (projects) {
-  <label>Projects</label>
-  <select [(ngModel)]="selectedProject" name="projects" id="projects" (change)="onProjectChange()">
 
-    <option value="">Select option</option>
-    @for (project of projects.data; track $index) {
-      <option [value]="project.id" value="{{ project.id }}">{{ project.attributes.title }}</option>
+<div>
+  @let projects = projectsSignal();
+  @if (projects) {
+    <label style="padding-right: 8px">Projects</label>
+    <select style="height: 30px; font-size: 16px" [(ngModel)]="selectedProject" name="projects" id="projects" (change)="onProjectChange()">
+
+      <option value="">
+        Default</option>
+      @for (project of projects.data; track $index) {
+        <option [value]="project.id" value="{{ project.id }}">{{ project.attributes.title }}</option>
+      }
+    </select>
+    <button style="margin-top: 24px; margin-left: 10px; border-radius: 10px; font-size: 25px" (click)="onNewProject()">+
+    </button>
+
+
+    @if (isOpenNewProjectForm) {
+      <div style="margin-top: 24px; margin-left: 25px">
+        <cp-add-project-form (addProjectRequest)="onAddProject($event)"></cp-add-project-form>
+      </div>
     }
-  </select>
-} @else {
-  <div class="loading">Loading...</div>
-}
+
+
+  } @else {
+    <div class="loading">Loading...</div>
+  }
+</div>
+
 
 @let board = boardSignal();
 @if (board) {

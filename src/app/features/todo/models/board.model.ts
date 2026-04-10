@@ -43,3 +43,14 @@ export interface ColumnInModel {
   description?: string;
   projectId?: string;
 }
+
+
+export interface ProjectFormModel {
+  title: string;
+  description?: string;
+}
+
+export interface ProjectInModel {
+  title: string;
+  description?: string;
+}

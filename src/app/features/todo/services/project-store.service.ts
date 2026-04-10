@@ -6,7 +6,15 @@ import { ProjectModelRemote } from '../models/remote.model';
   providedIn: 'root',
 })
 export class ProjectStoreService {
-  currentProject?: Data<ProjectModelRemote>;
+  private _currentProjectId?: string;
 
   constructor() {}
+
+  setCurrentProject(id: string): void {
+    this._currentProjectId = id;
+  }
+
+  get currentProjectId(): string | undefined {
+    return this._currentProjectId;
+  }
 }

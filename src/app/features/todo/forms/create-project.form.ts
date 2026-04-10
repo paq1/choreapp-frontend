@@ -1,0 +1,25 @@
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ColumnFormModel, ProjectFormModel } from '../models/board.model';
+
+export class CreateProjectFormGroup extends FormGroup {
+  constructor() {
+    super({
+      title: new FormControl('', Validators.required),
+      description: new FormControl(undefined),
+    });
+  }
+
+  get title() {
+    return this.get('title');
+  }
+  get description() {
+    return this.get('description');
+  }
+
+  getValue(): ProjectFormModel {
+    return {
+      title: this.title?.value,
+      description: this.description?.value === null ? undefined : this.description?.value,
+    };
+  }
+}

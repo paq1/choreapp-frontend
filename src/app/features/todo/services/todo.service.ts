@@ -4,6 +4,7 @@ import {
   BoardV2,
   ColumnInModel,
   ColumnModelV2,
+  ProjectInModel,
   TicketInModel,
   TicketModelV2,
 } from '../models/board.model';
@@ -88,6 +89,15 @@ export class TodoService {
     this.daoTodo.addColumn(column).subscribe({
       next: () => {
         this.fetchBoardV2(projectId);
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
+  addProject(project: ProjectInModel, projectId?: string): void {
+    this.daoTodo.addProject(project).subscribe({
+      next: () => {
+        this.fetchProjects();
       },
       error: (err) => console.error(err),
     });

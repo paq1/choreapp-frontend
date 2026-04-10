@@ -1,6 +1,9 @@
 <div>
-  <button style="margin-top: 24px; margin-left: 10px; border-radius: 10px; font-size: 25px" (click)="onNewTask()">+
-  </button>
+  @let columns = board()?.columns;
+  @if (columns && columns.length > 0) {
+    <button style="margin-top: 24px; margin-left: 10px; border-radius: 10px; font-size: 25px" (click)="onNewTask()">+
+    </button>
+  }
 
   @if (isOpen) {
     <div style="margin-top: 24px; margin-left: 25px">
